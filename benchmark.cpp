@@ -104,6 +104,7 @@ int main(int argc, char** argv)
 #endif
            std::chrono::time_point<std::chrono::high_resolution_clock> end
            = std::chrono::high_resolution_clock::now();
+           std::cout << std::fixed << std::setprecision(9) << std::endl;
            std::chrono::duration<double> elapsed
            = end - start;
            std::cout << "Our Elapsed time (Seconds): " << elapsed.count() << std::endl;
