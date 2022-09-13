@@ -98,12 +98,13 @@ int main(int argc, char** argv)
 
 #ifdef BLOCKED
            square_dgemm_blocked(n, b, A, B, C);
+           std::cout << "Block size: " << b << std::endl;
 #else
            square_dgemm(n, A, B, C);
 #endif
            std::chrono::time_point<std::chrono::high_resolution_clock> end
            = std::chrono::high_resolution_clock::now();
-           std::chrono::duration<double> elapsed 
+           std::chrono::duration<double> elapsed
            = end - start;
            std::cout << "Our Elapsed time (Seconds): " << elapsed.count() << std::endl;
 
