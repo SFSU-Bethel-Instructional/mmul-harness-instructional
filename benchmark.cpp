@@ -93,16 +93,31 @@ int main(int argc, char** argv)
            memcpy((void *)Ccopy, (const void *)C, sizeof(double)*n*n);
 
            // insert timer code here
+           std::chrono::time_point<std::chrono::high_resolution_clock> start =
+           std::chrono::high_resolution_clock::now();
 
 #ifdef BLOCKED
            square_dgemm_blocked(n, b, A, B, C);
 #else
            square_dgemm(n, A, B, C);
 #endif
+           std::chrono::time_point<std::chrono::high_resolution_clock> end
+           = std::chrono::high_resolution_clock::now();
+           std::chrono::duration<double> elapsed 
+           = end - start;
+           std::cout << "Our Elapsed time (Seconds): " << elapsed.count() << std::endl;
 
+
+          //NEXT TIMING BLOCK
            // insert timer code here
+           start = std::chrono::high_resolution_clock::now();
 
            reference_dgemm(n, 1.0 , Acopy, Bcopy, Ccopy);
+
+           end = std::chrono::high_resolution_clock::now();
+           elapsed = end - start;
+           std::cout << "Reference Matmul Elapsed time (Seconds): " << elapsed.count() << std::endl;
+           //End timer
 
            // compare your C with that computed by BLAS
            if (check_accuracy(Ccopy, C, n*n) == false)
