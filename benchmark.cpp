@@ -19,6 +19,7 @@
 #include <string.h>
 
 // external definitions for mmul's
+
 extern void square_dgemm(int, double*, double*, double*);
 extern void square_dgemm_blocked(int, int, double*, double*, double*) ;
 extern const char* dgemm_desc;
@@ -38,7 +39,7 @@ void fill(double* p, int n) {
 bool check_accuracy(double *A, double *Anot, int nvalues)
 {
   double eps = 1e-5;
-  for (size_t i = 0; i < nvalues; i++) 
+  for (size_t i = 0; i < nvalues; i++)
   {
     if (fabsf(A[i] - Anot[i]) > eps) {
        return false;
@@ -48,8 +49,9 @@ bool check_accuracy(double *A, double *Anot, int nvalues)
 }
 
 
+
 /* The benchmarking program */
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
     std::cout << "Description:\t" << dgemm_desc << std::endl << std::endl;
 
@@ -61,7 +63,7 @@ int main(int argc, char** argv)
     int n_problems = test_sizes.size();
 
     /* For each test size */
-    for (int n : test_sizes) 
+    for (int n : test_sizes)
     {
         printf("Working on problem size N=%d \n", n);
 
@@ -93,9 +95,9 @@ int main(int argc, char** argv)
            // insert timer code here
 
 #ifdef BLOCKED
-           square_dgemm_blocked(n, b, A, B, C); 
+           square_dgemm_blocked(n, b, A, B, C);
 #else
-           square_dgemm(n, A, B, C); 
+           square_dgemm(n, A, B, C);
 #endif
 
            // insert timer code here
